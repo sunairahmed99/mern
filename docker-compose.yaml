@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    networks:
+      - mern-network
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "9000:9000"
+    depends_on:
+      - redis
+    networks:
+      - mern-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+networks:
+  mern-network:
+    driver: bridge

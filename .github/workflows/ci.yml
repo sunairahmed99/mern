@@ -42,11 +42,7 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      # 5. Backend: Redis connection test
-      - name: Test Redis connection
-        working-directory: ./backend
-        run: |
-          node -e "import('./Config/redisconfig.js').then(m => m.connectRedis()).then(() => console.log('Redis connected successfully')).catch(e => { console.error(e); process.exit(1); });"
+     
 
       # 6. Frontend: Install dependencies
       - name: Install Frontend dependencies

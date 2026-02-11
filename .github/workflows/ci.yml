@@ -10,14 +10,7 @@ on:
 
 jobs:
   build-and-push:
-
     runs-on: ubuntu-latest
-
-    services:
-      redis:
-        image: redis:8-alpine
-        ports:
-          - 6379:6379
 
     steps:
       # 1. Checkout repo
@@ -42,38 +35,36 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-     
-
-      # 6. Frontend: Install dependencies
+      # 5. Frontend: Install dependencies
       - name: Install Frontend dependencies
         working-directory: ./frontend
         run: npm install
 
-      # 7. Frontend: Build
+      # 6. Frontend: Build
       - name: Build Frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 8. Docker: Build Backend image
+      # 7. Docker: Build Backend image
       - name: Build Backend Docker image
         run: |
-          docker build -t sunairahmed99/mern-backend:latest ./backend
-          docker tag sunairahmed99/mern-backend:latest sunairahmed99/mern-backend:${{ github.sha }}
+          docker build -t sunair21/mern-backend:latest ./backend
+          docker tag sunair21/mern-backend:latest sunair21/mern-backend:${{ github.sha }}
 
-      # 9. Docker: Push Backend image
+      # 8. Docker: Push Backend image
       - name: Push Backend Docker image
         run: |
-          docker push sunairahmed99/mern-backend:latest
-          docker push sunairahmed99/mern-backend:${{ github.sha }}
+          docker push sunair21/mern-backend:latest
+          docker push sunair21/mern-backend:${{ github.sha }}
 
-      # 10. Docker: Build Frontend image
+      # 9. Docker: Build Frontend image
       - name: Build Frontend Docker image
         run: |
-          docker build -t sunairahmed99/mern-frontend:latest ./frontend
-          docker tag sunairahmed99/mern-frontend:latest sunairahmed99/mern-frontend:${{ github.sha }}
+          docker build -t sunair21/mern-frontend:latest ./frontend
+          docker tag sunair21/mern-frontend:latest sunair21/mern-frontend:${{ github.sha }}
 
-      # 11. Docker: Push Frontend image
+      # 10. Docker: Push Frontend image
       - name: Push Frontend Docker image
         run: |
-          docker push sunairahmed99/mern-frontend:latest
-          docker push sunairahmed99/mern-frontend:${{ github.sha }}
+          docker push sunair21/mern-frontend:latest
+          docker push sunair21/mern-frontend:${{ github.sha }}

@@ -7,7 +7,9 @@ import { connectRedis } from "./Config/redisconfig.js";
 dotenv.config({quiet:true})
 
 
-await connectRedis();
+(async () => {
+  await connectRedis(); 
+})();
 
 console.log("perfect")
 

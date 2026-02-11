@@ -46,7 +46,7 @@ jobs:
       - name: Test Redis connection
         working-directory: ./backend
         run: |
-          node -e "import('./redis.js').then(() => console.log('Redis connected successfully'));"
+          node -e "import('./Config/redisconfig.js').then(() => console.log('Redis connected successfully'));"
 
       # 6. Frontend: Install deps
       - name: Install Frontend dependencies
